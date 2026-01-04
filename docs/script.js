@@ -1,11 +1,12 @@
 const API_BASE = "https://dayflow-backend-dgio.onrender.com";
 
+/* ===================== LOGIN ===================== */
 function login() {
     const email = document.querySelector('input[type="email"]').value;
     const password = document.querySelector('input[type="password"]').value;
     const selectedRole = document.getElementById("role").value;
 
-    fetch("API_BASE/login", {
+    fetch(`${API_BASE}/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -32,6 +33,7 @@ function login() {
     });
 }
 
+/* ===================== LEAVE ===================== */
 function applyLeave() {
     const leaveType = document.querySelector("select").value;
     const fromDate = document.getElementById("fromDate").value;
@@ -43,11 +45,9 @@ function applyLeave() {
         return;
     }
 
-    fetch("API_BASE/leave/apply", {
+    fetch(`${API_BASE}/leave/apply`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             type: leaveType,
             from: fromDate,
@@ -55,22 +55,24 @@ function applyLeave() {
             remarks: remarks
         })
     })
-        .then(res => res.json())
-        .then(data => {
-            alert("Leave request submitted successfully");
-        })
-        .catch(err => {
-            alert("Error submitting leave");
-            console.error(err);
-        });
+    .then(res => res.json())
+    .then(() => {
+        alert("Leave request submitted successfully");
+    })
+    .catch(err => {
+        alert("Error submitting leave");
+        console.error(err);
+    });
 }
+
 function loadLeaves() {
-    fetch("API_BASE/leave/list")
+    fetch(`${API_BASE}/leave/list`)
         .then(res => res.json())
         .then(data => {
             const table = document.getElementById("leaveTable");
-            table.innerHTML = "";
+            if (!table) return;
 
+            table.innerHTML = "";
             data.forEach((leave, index) => {
                 table.innerHTML += `
                     <tr>
@@ -89,45 +91,48 @@ function loadLeaves() {
 }
 
 function updateLeave(index, status) {
-    fetch("API_BASE/leave/update", {
+    fetch(`${API_BASE}/leave/update`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ index, status })
     })
-        .then(res => res.json())
-        .then(() => {
-            alert("Leave " + status);
-            loadLeaves();
-        })
-        .catch(err => console.error(err));
+    .then(res => res.json())
+    .then(() => {
+        alert("Leave " + status);
+        loadLeaves();
+    })
+    .catch(err => console.error(err));
 }
+
+/* ===================== ATTENDANCE ===================== */
 function checkIn() {
-    fetch("API_BASE/attendance/checkin", {
+    fetch(`${API_BASE}/attendance/checkin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: "emp@dayflow.com" })
     })
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) alert(data.error);
-            else alert("Checked in successfully");
-        });
+    .then(res => res.json())
+    .then(data => {
+        if (data.error) alert(data.error);
+        else alert("Checked in successfully");
+    });
 }
 
 function checkOut() {
-    fetch("API_BASE/attendance/checkout", {
+    fetch(`${API_BASE}/attendance/checkout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: "emp@dayflow.com" })
     })
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) alert(data.error);
-            else alert("Checked out successfully");
-        });
+    .then(res => res.json())
+    .then(data => {
+        if (data.error) alert(data.error);
+        else alert("Checked out successfully");
+    });
 }
+
 function loadAttendance() {
-    fetch("API_BASE/attendance/list")
+    fetch(`${API_BASE}/attendance/list`)
         .then(res => res.json())
         .then(data => {
             const table = document.getElementById("attendanceTable");
@@ -147,8 +152,10 @@ function loadAttendance() {
             });
         });
 }
+
+/* ===================== EMPLOYEE PROFILE ===================== */
 function loadProfile() {
-    fetch("API_BASE/profile")
+    fetch(`${API_BASE}/profile`)
         .then(res => res.json())
         .then(data => {
             document.getElementById("name").innerText = data.name;
@@ -167,18 +174,18 @@ function updateProfile() {
     const phone = document.getElementById("phone").value;
     const address = document.getElementById("address").value;
 
-    fetch("API_BASE/profile/update", {
+    fetch(`${API_BASE}/profile/update`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone, address })
     })
-        .then(res => res.json())
-        .then(() => {
-            alert("Profile updated successfully");
-        });
+    .then(res => res.json())
+    .then(() => alert("Profile updated successfully"));
 }
+
+/* ===================== ADMIN PROFILE ===================== */
 function loadAdminProfile() {
-    fetch("API_BASE/admin/profile")
+    fetch(`${API_BASE}/admin/profile`)
         .then(res => res.json())
         .then(data => {
             document.getElementById("name").innerText = data.name;
@@ -195,19 +202,18 @@ function updateAdminProfile() {
     const phone = document.getElementById("phone").value;
     const address = document.getElementById("address").value;
 
-    fetch("API_BASE/admin/profile/update", {
+    fetch(`${API_BASE}/admin/profile/update`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone, address })
     })
-        .then(res => res.json())
-        .then(() => {
-            alert("Admin profile updated successfully");
-        });
+    .then(res => res.json())
+    .then(() => alert("Admin profile updated successfully"));
 }
 
+/* ===================== ADMIN → EMPLOYEE ===================== */
 function loadEmployeeForAdmin() {
-    fetch("API_BASE/admin/employee/profile")
+    fetch(`${API_BASE}/admin/employee/profile`)
         .then(res => res.json())
         .then(data => {
             document.getElementById("emp_name").value = data.name;
@@ -221,7 +227,7 @@ function loadEmployeeForAdmin() {
 }
 
 function updateEmployeeByAdmin() {
-    fetch("API_BASE/admin/employee/profile/update", {
+    fetch(`${API_BASE}/admin/employee/profile/update`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -234,18 +240,18 @@ function updateEmployeeByAdmin() {
             salary: document.getElementById("emp_salary").value
         })
     })
-        .then(res => res.json())
-        .then(() => {
-            alert("Employee profile updated by admin");
-        });
+    .then(res => res.json())
+    .then(() => alert("Employee profile updated by admin"));
 }
+
+/* ===================== SIGNUP ===================== */
 function signup() {
     const employeeId = document.getElementById("employeeId").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const role = document.getElementById("role").value;
 
-    fetch("API_BASE/signup", {
+    fetch(`${API_BASE}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -255,23 +261,26 @@ function signup() {
             role: role
         })
     })
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) {
-                alert(data.error);
-            } else {
-                alert("Signup successful! Please login.");
-                window.location.href = "login.html";
-            }
-        })
-        .catch(err => {
-            alert("Signup failed");
-            console.error(err);
-        });
+    .then(res => res.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            alert("Signup successful! Please login.");
+            window.location.href = "login.html";
+        }
+    })
+    .catch(err => {
+        alert("Signup failed");
+        console.error(err);
+    });
 }
+
+/* ===================== NAVIGATION ===================== */
 function goEmployeeDashboard() {
     window.location.href = "employee_dashboard.html";
 }
+
 function goAdminDashboard() {
     window.location.href = "admin_dashboard.html";
 }
