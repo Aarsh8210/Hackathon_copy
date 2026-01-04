@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Dayflow HRMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .hidden {
+            display: none;
+        }
+        .clickable {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Admin Dashboard</h2>
+
+<!-- ================= DASHBOARD CARDS ================= -->
+<div class="dashboard">
+    <div class="card clickable" onclick="showProfile()">
+        <h3>My Profile</h3>
+        <p>View / Edit profile</p>
+    </div>
+
+    <div class="card clickable" onclick="showLeaves()">
+        <h3>Leave Management</h3>
+        <p>Approve / Reject employee leaves</p>
+    </div>
+
+    <div class="card clickable" onclick="showAttendance()">
+        <h3>Attendance</h3>
+        <p>View employee attendance</p>
+    </div>
+
+    <div class="card clickable" onclick="logout()">
+        <h3>Logout</h3>
+        <p>Exit admin panel</p>
+    </div>
+</div>
+
+<!-- ================= LEAVE MANAGEMENT ================= -->
+<div id="leaveSection" class="hidden">
+    <h3 style="margin-top:40px;">Leave Requests</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Leave Type</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="leaveTable"></tbody>
+    </table>
+</div>
+
+<!-- ================= ATTENDANCE ================= -->
+<div id="attendanceSection" class="hidden">
+    <h3 style="margin-top:40px;">Attendance Records</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="attendanceTable"></tbody>
+    </table>
+</div>
+
+<script src="script.js"></script>
+
+<script>
+    loadLeaves();
+    loadAttendance();
+
+    function showLeaves() {
+        document.getElementById("leaveSection").classList.remove("hidden");
+        document.getElementById("attendanceSection").classList.add("hidden");
+    }
+
+    function showAttendance() {
+        document.getElementById("attendanceSection").classList.remove("hidden");
+        document.getElementById("leaveSection").classList.add("hidden");
+    }
+
+    function showProfile() {
+        window.location.href = "admin_profile.html";
+    }
+
+    function logout() {
+        window.location.href = "login.html";
+    }
+</script>
+
+</body>
+</html>

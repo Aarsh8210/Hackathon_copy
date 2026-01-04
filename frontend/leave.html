@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Apply Leave</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<button onclick="goEmployeeDashboard()">⬅ Back to Dashboard</button>
+
+<body>
+    <h2>Apply for Leave</h2>
+
+    <form>
+        <label>Leave Type</label>
+        <select>
+            <option>Paid</option>
+            <option>Sick</option>
+            <option>Unpaid</option>
+        </select>
+
+        <label>From</label>
+        <input type="date" id="fromDate">
+
+        <label>To</label>
+        <input type="date" id="toDate">
+
+        <label>Remarks</label>
+        <textarea></textarea>
+
+        <button type="button" onclick="applyLeave()">Submit</button>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+</html>

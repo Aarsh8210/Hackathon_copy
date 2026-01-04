@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<button onclick="goEmployeeDashboard()">⬅ Back to Dashboard</button>
+
+
+<body>
+
+<h2>My Profile</h2>
+
+<div class="card">
+    <p><b>Name:</b> <span id="name"></span></p>
+    <p><b>Email:</b> <span id="email"></span></p>
+    <p><b>Role:</b> <span id="role"></span></p>
+    <p><b>Department:</b> <span id="department"></span></p>
+    <p><b>Designation:</b> <span id="designation"></span></p>
+    <p><b>Salary:</b> <span id="salary"></span></p>
+</div>
+
+<h3>Edit Contact Details</h3>
+
+<div class="card">
+    <input type="text" id="phone" placeholder="Phone Number">
+    <textarea id="address" placeholder="Address"></textarea>
+    <button onclick="updateProfile()">Update Profile</button>
+</div>
+
+<script src="script.js"></script>
+<script>
+    loadProfile();
+</script>
+
+</body>
+</html>
