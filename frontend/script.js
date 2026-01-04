@@ -1,9 +1,11 @@
+const API_BASE = "https://dayflow-backend-dgio.onrender.com";
+
 function login() {
     const email = document.querySelector('input[type="email"]').value;
     const password = document.querySelector('input[type="password"]').value;
     const selectedRole = document.getElementById("role").value;
 
-    fetch("http://127.0.0.1:5000/login", {
+    fetch("API_BASE/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -41,7 +43,7 @@ function applyLeave() {
         return;
     }
 
-    fetch("http://127.0.0.1:5000/leave/apply", {
+    fetch("API_BASE/leave/apply", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -63,7 +65,7 @@ function applyLeave() {
         });
 }
 function loadLeaves() {
-    fetch("http://127.0.0.1:5000/leave/list")
+    fetch("API_BASE/leave/list")
         .then(res => res.json())
         .then(data => {
             const table = document.getElementById("leaveTable");
@@ -87,7 +89,7 @@ function loadLeaves() {
 }
 
 function updateLeave(index, status) {
-    fetch("http://127.0.0.1:5000/leave/update", {
+    fetch("API_BASE/leave/update", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ index, status })
@@ -100,7 +102,7 @@ function updateLeave(index, status) {
         .catch(err => console.error(err));
 }
 function checkIn() {
-    fetch("http://127.0.0.1:5000/attendance/checkin", {
+    fetch("API_BASE/attendance/checkin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: "emp@dayflow.com" })
@@ -113,7 +115,7 @@ function checkIn() {
 }
 
 function checkOut() {
-    fetch("http://127.0.0.1:5000/attendance/checkout", {
+    fetch("API_BASE/attendance/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: "emp@dayflow.com" })
@@ -125,7 +127,7 @@ function checkOut() {
         });
 }
 function loadAttendance() {
-    fetch("http://127.0.0.1:5000/attendance/list")
+    fetch("API_BASE/attendance/list")
         .then(res => res.json())
         .then(data => {
             const table = document.getElementById("attendanceTable");
@@ -146,7 +148,7 @@ function loadAttendance() {
         });
 }
 function loadProfile() {
-    fetch("http://127.0.0.1:5000/profile")
+    fetch("API_BASE/profile")
         .then(res => res.json())
         .then(data => {
             document.getElementById("name").innerText = data.name;
@@ -165,7 +167,7 @@ function updateProfile() {
     const phone = document.getElementById("phone").value;
     const address = document.getElementById("address").value;
 
-    fetch("http://127.0.0.1:5000/profile/update", {
+    fetch("API_BASE/profile/update", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone, address })
@@ -176,7 +178,7 @@ function updateProfile() {
         });
 }
 function loadAdminProfile() {
-    fetch("http://127.0.0.1:5000/admin/profile")
+    fetch("API_BASE/admin/profile")
         .then(res => res.json())
         .then(data => {
             document.getElementById("name").innerText = data.name;
@@ -193,7 +195,7 @@ function updateAdminProfile() {
     const phone = document.getElementById("phone").value;
     const address = document.getElementById("address").value;
 
-    fetch("http://127.0.0.1:5000/admin/profile/update", {
+    fetch("API_BASE/admin/profile/update", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone, address })
@@ -205,7 +207,7 @@ function updateAdminProfile() {
 }
 
 function loadEmployeeForAdmin() {
-    fetch("http://127.0.0.1:5000/admin/employee/profile")
+    fetch("API_BASE/admin/employee/profile")
         .then(res => res.json())
         .then(data => {
             document.getElementById("emp_name").value = data.name;
@@ -219,7 +221,7 @@ function loadEmployeeForAdmin() {
 }
 
 function updateEmployeeByAdmin() {
-    fetch("http://127.0.0.1:5000/admin/employee/profile/update", {
+    fetch("API_BASE/admin/employee/profile/update", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -243,7 +245,7 @@ function signup() {
     const password = document.getElementById("password").value;
     const role = document.getElementById("role").value;
 
-    fetch("http://127.0.0.1:5000/signup", {
+    fetch("API_BASE/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
